@@ -1,5 +1,5 @@
 //
-//  settingsView.swift
+//  pastImagesView.swift
 //  Final App
 //
 //  Created by Raphael Abano on 11/10/24.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct settingsView: View {
+struct PreviousImagesView: View {
     var body: some View {
-       Text("Hello, World!")
+        Text("Previous Images")
     }
 }
 
 #Preview {
-    settingsView()
+    PreviousImagesView()
 }

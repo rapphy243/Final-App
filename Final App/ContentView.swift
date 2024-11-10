@@ -7,6 +7,7 @@
 //  Additional Features: User can refresh the image, User can save the image to their photo library, Tab/Screen where user can view last 10? images, User can change API
 //  API: TBD
 // https://www.youtube.com/watch?v=aP_Q4YiIgYU
+
 import SwiftUI
 
 struct ContentView: View {
@@ -33,13 +34,19 @@ struct ContentView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Random Image App")
-            .toolbar {
+            .navigationTitle("Generate a Image")
+            .toolbar { // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: settingsView()) {
-                        Image(systemName: "gear")
-                    }
-                    .padding()
+                    Menu(content: {
+                        NavigationLink(destination: SettingsView()){
+                            Label("Settings", systemImage: "gear")
+                        }
+                        NavigationLink(destination: PreviousImagesView()){
+                            Label("Previous Images", systemImage: "photo")
+                        }
+                    }, label: {
+                        Image(systemName: "ellipsis")
+                    })
                 }
             }
         }
