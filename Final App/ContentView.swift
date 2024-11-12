@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var image: UIImage? = nil
     @State private var previousImages = [UIImage]()
     @State private var savedImages = [UIImage]()
+    @State private var showSettings = false
     @State private var url = URL(string: "https://picsum.photos/1000") //This website doesn't return an image on school wifi :(
     var body: some View {
         NavigationStack {
@@ -56,8 +57,8 @@ struct ContentView: View {
                 // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
-                        NavigationLink(destination: SettingsView()){
-                            Label("Settings", systemImage: "gear")
+                        Button("Settings", systemImage: "gear") {
+                            showSettings = true
                         }
                     }, label: {
                         Image(systemName: "ellipsis")
@@ -68,6 +69,10 @@ struct ContentView: View {
                         Label("Previous Images", systemImage: "photo")
                     }
                 }
+            }
+            .sheet(isPresented: $showSettings){
+                //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
+                SettingsView(showSettings: $showSettings)
             }
         }
     }
