@@ -57,11 +57,11 @@ struct ContentView: View {
                 // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
-                        Button("Settings", systemImage: "gear") {
-                            settings.showSettings.toggle()
-                        }
                         NavigationLink(destination: PreviousImagesView(previousImages: previousImages)) {
                             Label("Previous Images", systemImage: "folder")
+                        }
+                        Button("Settings", systemImage: "gear") {
+                            settings.showSettings.toggle()
                         }
                     }, label: {
                         Image(systemName: "ellipsis")
@@ -75,7 +75,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $settings.showSettings){
                 //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
-                SettingsView(showSettings: $settings.showSettings)
+                SettingsView(settings: $settings)
             }
         }
     }
