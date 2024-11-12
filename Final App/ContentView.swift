@@ -5,7 +5,6 @@
 //  Created by Raphael Abano on 10/17/24.
 //  App Goal: Get a random image from an API and display it on the screen
 //  Additional Features: User can refresh the image, User can save the image to their photo library, Tab/Screen where user can view last 10? images, User can change API
-//  API: TBD
 // https://www.youtube.com/watch?v=aP_Q4YiIgYU
 
 import SwiftUI
@@ -14,8 +13,9 @@ struct ContentView: View {
     @State private var image: UIImage? = nil
     @State private var previousImages = [UIImage]()
     @State private var savedImages = [UIImage]()
-    @State private var showSettings = false
-    @State private var url = URL(string: "https://picsum.photos/1000") //This website doesn't return an image on school wifi :(
+    @State private var settings = Settings()
+//    @State private var showSettings = Settings.showSettings
+//    @State private var url = Settings.url //This website doesn't return an image on school wifi :(
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,7 +33,7 @@ struct ContentView: View {
                 HStack {
                     Button("Refresh Image") {
                         //Generated part of prompt below
-                        downloadImage(from: url!) { downloadedImage in
+                        downloadImage(from: settings.url) { downloadedImage in
                             if let downloadedImage = downloadedImage {
                                 image = downloadedImage
                                 previousImages.append(downloadedImage)
@@ -58,21 +58,24 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
                         Button("Settings", systemImage: "gear") {
-                            showSettings = true
+                            settings.showSettings.toggle()
+                        }
+                        NavigationLink(destination: PreviousImagesView(previousImages: previousImages)) {
+                            Label("Previous Images", systemImage: "folder")
                         }
                     }, label: {
                         Image(systemName: "ellipsis")
                     })
                 }
                 ToolbarItem(placement: .topBarLeading){
-                    NavigationLink(destination: PreviousImagesView(previousImages: previousImages)){
-                        Label("Previous Images", systemImage: "photo")
+                    NavigationLink(destination: SavedImagesView(savedImages: savedImages)){
+                        Label("Saved Images", systemImage: "photo")
                     }
                 }
             }
-            .sheet(isPresented: $showSettings){
+            .sheet(isPresented: $settings.showSettings){
                 //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
-                SettingsView(showSettings: $showSettings)
+                SettingsView(showSettings: $settings.showSettings)
             }
         }
     }
