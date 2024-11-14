@@ -12,10 +12,9 @@ import SwiftUI
 struct ContentView: View {
     @State private var image: UIImage? = nil
     @State private var previousImages = [UIImage]()
+    @State private var previousImagesIndex = 0
     @State private var savedImages = [UIImage]()
     @State private var settings = Settings()
-//    @State private var showSettings = Settings.showSettings
-//    @State private var url = Settings.url //This website doesn't return an image on school wifi :(
     var body: some View {
         NavigationStack {
             VStack {
@@ -24,10 +23,9 @@ struct ContentView: View {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 350, height: 350)
-                } else { //set a placeholder image if there is no image yet
-                    Image("placeholder")
-                        .resizable()
-                        .frame(width: 350, height: 350)
+                } else { //set a placeholder if there is no image yet
+                   Text("Refresh to show an image!")
+                        .bold()
                 }
                 Spacer()
                 HStack {
@@ -35,8 +33,19 @@ struct ContentView: View {
                         //Generated part of prompt below
                         downloadImage(from: settings.url) { downloadedImage in
                             if let downloadedImage = downloadedImage {
+                        //End of part
                                 image = downloadedImage
-                                previousImages.append(downloadedImage)
+                                if (previousImages.count < 12) {
+                                    previousImages.append(downloadedImage)
+                                    previousImagesIndex += 1
+                                }
+                                else {
+                                    if (previousImagesIndex >= 12){
+                                        previousImagesIndex = 0
+                                    }
+                                    previousImages[previousImagesIndex] = downloadedImage
+                                    previousImagesIndex += 1
+                                }
                             }
                         }
                     }
@@ -63,6 +72,9 @@ struct ContentView: View {
                         Button("Settings", systemImage: "gear") {
                             settings.showSettings.toggle()
                         }
+                        NavigationLink(destination: AboutView()) {
+                            Label("About", systemImage: "info.circle")
+                        }
                     }, label: {
                         Image(systemName: "ellipsis")
                     })
@@ -76,6 +88,7 @@ struct ContentView: View {
             .sheet(isPresented: $settings.showSettings){
                 //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
                 SettingsView(settings: $settings)
+                
             }
         }
     }
