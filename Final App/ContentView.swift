@@ -11,9 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var image: UIImage? = nil
-    @State private var previousImages = [UIImage]()
+    @State private var previousImages = [UIImage]() //Max of 15 Images
     @State private var previousImagesIndex = 0
-    @State private var savedImages = [UIImage]()
+    @State private var savedImages = [UIImage]() //Unlimited Images
     @State private var settings = Settings()
     @State private var showAlert = false
     var body: some View {
@@ -24,7 +24,7 @@ struct ContentView: View {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 350, height: 350)
-                } else { //set a placeholder if there is no image yet
+                } else { //Placeholder if there is no image yet
                    Text("Refresh to show an image!")
                         .bold()
                 }
@@ -36,12 +36,12 @@ struct ContentView: View {
                             if let downloadedImage = downloadedImage {
                         //End of part
                                 image = downloadedImage
-                                if (previousImages.count < 12) {
+                                if (previousImages.count < 15) {
                                     previousImages.append(downloadedImage)
                                     previousImagesIndex += 1
                                 }
                                 else {
-                                    if (previousImagesIndex >= 12){
+                                    if (previousImagesIndex >= 15){
                                         previousImagesIndex = 0
                                     }
                                     previousImages[previousImagesIndex] = downloadedImage

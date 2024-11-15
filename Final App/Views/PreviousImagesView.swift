@@ -48,7 +48,12 @@ struct PreviousImagesView: View {
 }
 
 #Preview {
-    @Previewable @State var previousImages = [UIImage]()
+    //https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
+    //
+    @Previewable @State var previousImages: [UIImage] = [
+        UIImage(named: "AppIcon.png")!,
+        UIImage(named: "AppIcon Dark.png")!,
+        UIImage(named: "AppIcon Grayscale.png")!]
     @Previewable @State var savedImages = [UIImage]()
     PreviousImagesView(previousImages: $previousImages, savedImages: $savedImages)
 }
