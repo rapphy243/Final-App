@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct PreviousImagesView: View {
-    @State var previousImages : [UIImage]
+    @Binding var previousImages : [UIImage]
+    @Binding var savedImages : [UIImage]
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,6 +26,15 @@ struct PreviousImagesView: View {
                                     Image(uiImage: previousImages[index])
                                         .resizable()
                                         .frame(width: 100, height: 100)
+                                        .contextMenu { //https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
+                                            Button("Delete") {
+                                                previousImages.remove(at: index)
+                                            }
+                                            Button("Save to Saved Images") {
+                                                savedImages.append(previousImages[index])
+                                            }
+                                        }
+                                    
                                 }
                             }
                         })
@@ -38,5 +48,7 @@ struct PreviousImagesView: View {
 }
 
 #Preview {
-    PreviousImagesView(previousImages: [])
+    @Previewable @State var previousImages = [UIImage]()
+    @Previewable @State var savedImages = [UIImage]()
+    PreviousImagesView(previousImages: $previousImages, savedImages: $savedImages)
 }

@@ -17,7 +17,7 @@ struct AboutView: View {
                             .resizable()
                             .frame(width: 145, height: 145)
                         //https://www.hackingwithswift.com/quick-start/swiftui/how-to-clip-a-view-so-only-part-is-visible
-                            .clipShape(Circle())
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
                     }
                     .padding()
                     VStack {
@@ -27,32 +27,11 @@ struct AboutView: View {
                             .bold()
                         Text("Version 1.0")
                             .font(.subheadline)
-                        Text("Created by Rapphy243")
+                        Text("By: Rapphy243")
                             .bold()
-    
                     }
-                        
-                }
 
-                //https://wwdcbysundell.com/2021/using-swiftui-async-image/
-                //Yes I could have just imported a local image but why not do this
-//                AsyncImage(url: URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png")) { phase in
-//                    switch phase {
-//                    case .empty:
-//                        EmptyView() // Nothing
-//                    case .success(let image):
-//                        image.resizable()
-//                            .frame(maxWidth: 50, maxHeight: 50)
-//                    case .failure:
-//                        Image(systemName: "photo")
-//                    @unknown default:
-//                        EmptyView()
-//                    }
-//                    Text("Rapphy243")
-//                        .font(.title)
-//                        .padding()
-//                }
-                
+                }
             }
         }
     }

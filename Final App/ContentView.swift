@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var previousImagesIndex = 0
     @State private var savedImages = [UIImage]()
     @State private var settings = Settings()
+    @State private var showAlert = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -52,11 +53,10 @@ struct ContentView: View {
                     .padding()
                     Button("Save Image") {
                         if let image = image {
-                            if !savedImages.contains(image) {
+                            if !savedImages.contains(image) { //Only prevents current image being saved multiple times, not future images of the same image
                                 savedImages.append(image)
+                                showAlert.toggle()
                             }
-                            //Add Pop up an alert saying image was saved
-                            
                         }
                     }
                 }
@@ -66,7 +66,7 @@ struct ContentView: View {
                 // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
-                        NavigationLink(destination: PreviousImagesView(previousImages: previousImages)) {
+                        NavigationLink(destination: PreviousImagesView(previousImages: $previousImages, savedImages: $savedImages)){
                             Label("Previous Images", systemImage: "folder")
                         }
                         Button("Settings", systemImage: "gear") {
@@ -80,7 +80,7 @@ struct ContentView: View {
                     })
                 }
                 ToolbarItem(placement: .topBarLeading){
-                    NavigationLink(destination: SavedImagesView(savedImages: savedImages)){
+                    NavigationLink(destination: SavedImagesView(savedImages: $savedImages)){
                         Label("Saved Images", systemImage: "photo")
                     }
                 }
@@ -88,8 +88,10 @@ struct ContentView: View {
             .sheet(isPresented: $settings.showSettings){
                 //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
                 SettingsView(settings: $settings)
-                
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Image Saved"), message: Text("Image was saved to your saved images"), dismissButton: .default(Text("OK")))
+                }
         }
     }
     
