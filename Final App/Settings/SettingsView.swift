@@ -17,7 +17,7 @@ struct SettingsView: View {
                         Text("Current API")
                             Spacer()
                         //https://www.hackingwithswift.com/quick-start/swiftui/how-to-let-users-pick-options-from-a-menu
-                        //The menu contains of all keys in settings.apiDict
+                        //Menu contains of all keys in settings.apiDict
                         //Also used Copilot to debug this "I am having problems making a list of each key in settings.apiDict which is a dictionary"
                         Menu(content: {
                             ForEach(Array(settings.apiDict.keys), id: \.self) { key in
@@ -30,19 +30,6 @@ struct SettingsView: View {
                             Text(settings.currAPI)
                         })
                     }
-//                    if settings.currAPI == ("Picsum") {
-//                        HStack {
-//                            Text("Resolution")
-//                            Spacer()
-//                            //https://www.hackingwithswift.com/quick-start/swiftui/how-to-format-a-textfield-for-numbers
-//                            Stepper(label: {
-//                                Text("\(settings.resolution)")
-//                            })
-//                        }
-//                    }
-//                    else {
-//                        
-//                    }
                 })
             }
             .navigationTitle("Settings")

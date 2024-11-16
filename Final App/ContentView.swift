@@ -10,8 +10,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var image: UIImage? = nil
-    @State private var previousImages = [UIImage]() //Max of 15 Images
+    @State private var image: UIImage? = nil //Displayed Image
+    @State private var previousImages = [UIImage]() //Will have a max of 15 Images
     @State private var previousImagesIndex = 0
     @State private var savedImages = [UIImage]() //Unlimited Images
     @State private var settings = Settings()
@@ -50,6 +50,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .buttonStyle(.bordered)
                     .padding()
                     Button("Save Image") {
                         if let image = image {
@@ -59,6 +60,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .buttonStyle(.bordered)
                 }
             }
             .navigationTitle("Generate a Image")
@@ -91,7 +93,7 @@ struct ContentView: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Image Saved"), message: Text("Image was saved to your saved images"), dismissButton: .default(Text("OK")))
-                }
+            }
         }
     }
     

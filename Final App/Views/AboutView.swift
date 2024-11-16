@@ -14,7 +14,7 @@ struct AboutView: View {
                 HStack {
                     //https://zappycode.com/tutorials/dark-mode-in-swiftui
                     ZStack {
-                        if (colorScheme != .dark) {
+                        if (colorScheme == .light) {
                             // https://icon.kitchen/
                             Image("Icon")
                                 .resizable()

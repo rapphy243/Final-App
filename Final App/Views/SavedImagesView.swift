@@ -11,36 +11,37 @@ struct SavedImagesView: View {
     @Binding var savedImages : [UIImage]
     var body: some View {
         NavigationStack {
-            ScrollView {
-                HStack {
-                    if savedImages.isEmpty {
-                        Text("No Images Saved")
-                    }
-                    else
-                    {
-                        LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3), content: {
-                            if (savedImages.count > 0) {
-                                //https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
-                                ForEach(0..<savedImages.count, id: \.self) { index in
-                                    Image(uiImage: savedImages[index])
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .contextMenu { //https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
-                                            contextMenuView(index: index, savedImages: $savedImages)
-                                        }
+            VStack {
+                if (!savedImages.isEmpty) {
+                    ScrollView {
+                        HStack {
+                            LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3), content: {
+                                if (savedImages.count > 0) {
+                                    //https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
+                                    ForEach(0..<savedImages.count, id: \.self) { index in
+                                        Image(uiImage: savedImages[index])
+                                            .resizable()
+                                            .frame(width: 100, height: 100)
+                                            .contextMenu { // https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
+                                                customContextMenu(index: index, savedImages: $savedImages)
+                                            }
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
+                }
+                else {
+                    Text("No Images Saved")
                 }
             }
             .navigationTitle("Saved Images")
-            
         }
     }
 }
-//Had to move to it's own struct bc can't type check in reasonable amount of time
-struct contextMenuView: View {
+// Had to move to it's own struct bc XCode can't type check in reasonable time
+// https://www.caseyliss.com/2022/2/9/saving-to-photo-library-via-sharesheet
+struct customContextMenu: View {
     @State var index : Int
     @Binding var savedImages : [UIImage]
     var body: some View {
@@ -53,7 +54,6 @@ struct contextMenuView: View {
 
 #Preview {
     //https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
-    //
     @Previewable @State var savedImages: [UIImage] = [
         UIImage(named: "AppIcon.png")!,
         UIImage(named: "AppIcon Dark.png")!,
