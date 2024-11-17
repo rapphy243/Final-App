@@ -26,10 +26,8 @@ struct AboutView: View {
                             Image("IconDark")
                                 .resizable()
                                 .frame(width: 145, height: 145)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
                         }
                     }
-                    .padding()
                     VStack {
                         Text("Random Image Generator")
                             .multilineTextAlignment(.center)
@@ -38,11 +36,25 @@ struct AboutView: View {
                         Text("Version 1.0")
                             .font(.subheadline)
                         Text("By: Rapphy243")
-                            .bold()
                     }
-                    
                 }
+                Text("Random Image Generator generates random images from a variety API sources.")
+                    .multilineTextAlignment(.center)
+                    .padding()
+                Text("Main Credits:")
+                    .font(.title2)
+                    .bold()
+                //https://www.hackingwithswiftb.com/quick-start/swiftui/how-to-customize-the-way-links-are-opened-using-linkdestination
+                Text("Icon made with [Icon.Kitchen](https://icon.kitchen)")
+                Text("API sources from [Random Image API](https://random.responsiveimages.io), [Picsum](https://picsum.photos), and [PepeBigotes/random-image](https://random-image-pepebigotes.vercel.app/) ")
+                    .multilineTextAlignment(.center)
+                Text("Image downloading code from [Apple Developer Documents](https://developer.apple.com/documentation) modified with [Github Copilot](https://github.com/features/copilot)")
+                    .multilineTextAlignment(.center)
+                    
+
+
             }
+            .navigationTitle("About")
         }
     }
 }

@@ -34,7 +34,7 @@ struct ContentView: View {
                         //Generated part of prompt below
                         downloadImage(from: settings.url) { downloadedImage in
                             if let downloadedImage = downloadedImage {
-                        //End of part
+                        //End of prompt
                                 image = downloadedImage
                                 if (previousImages.count < 15) {
                                     previousImages.append(downloadedImage)
@@ -50,7 +50,6 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .buttonStyle(.bordered)
                     .padding()
                     Button("Save Image") {
                         if let image = image {
@@ -60,7 +59,6 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .buttonStyle(.bordered)
                 }
             }
             .navigationTitle("Generate a Image")
@@ -92,7 +90,7 @@ struct ContentView: View {
                 SettingsView(settings: $settings)
             }
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Image Saved"), message: Text("Image was saved to your saved images"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Image Saved"), message: Text("Image was saved to Saved Images"), dismissButton: .default(Text("OK")))
             }
         }
     }
