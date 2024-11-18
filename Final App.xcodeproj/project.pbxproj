@@ -10,22 +10,9 @@
 		DAF6919C2CC19A8D006770DC /* Final App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Final App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DABD325A2CE8445500DC1E7F /* Exceptions for "Final App" folder in "Final App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Final-App-Info.plist",
-			);
-			target = DAF6919B2CC19A8C006770DC /* Final App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DAF6919E2CC19A8D006770DC /* Final App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DABD325A2CE8445500DC1E7F /* Exceptions for "Final App" folder in "Final App" target */,
-			);
 			path = "Final App";
 			sourceTree = "<group>";
 		};
