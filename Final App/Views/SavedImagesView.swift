@@ -17,7 +17,7 @@ struct SavedImagesView: View {
                         HStack {
                             LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3), content: {
                                 if (savedImages.count > 0) {
-                                    //https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
+                                    // https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
                                     ForEach(0..<savedImages.count, id: \.self) { index in
                                         Image(uiImage: savedImages[index])
                                             .resizable()
@@ -39,13 +39,15 @@ struct SavedImagesView: View {
         }
     }
 }
-// Had to move to it's own struct bc XCode can't type check in reasonable time
+
+// Had to move to its own struct bc Xcode can't typecheck quick enough
 // https://www.caseyliss.com/2022/2/9/saving-to-photo-library-via-sharesheet
 struct customContextMenu: View {
     @State var index : Int
     @Binding var savedImages : [UIImage]
     var body: some View {
-        Button("Delete") {
+        Button("Delete", systemImage: "trash") {
+            
             savedImages.remove(at: index)
         }
         ShareLink(item: Image(uiImage: savedImages[index]), preview: SharePreview("Share", image: Image(uiImage: savedImages[index])))
@@ -53,7 +55,8 @@ struct customContextMenu: View {
 }
 
 #Preview {
-    //https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
+    // Test Images
+    // https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
     @Previewable @State var savedImages: [UIImage] = [
         UIImage(named: "AppIcon.png")!,
         UIImage(named: "AppIcon Dark.png")!,

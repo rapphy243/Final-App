@@ -15,10 +15,10 @@ struct SettingsView: View {
                 Section(header: Text("API"), content: {
                     HStack {
                         Text("Current API")
-                            Spacer()
-                        //https://www.hackingwithswift.com/quick-start/swiftui/how-to-let-users-pick-options-from-a-menu
-                        //Menu contains of all keys in settings.apiDict
-                        //Also used Copilot to debug this "I am having problems making a list of each key in settings.apiDict which is a dictionary"
+                        Spacer()
+                        // Menu contains all keys in settings.apiDict
+                        // Also used Copilot to debug "I am having problems making a list of each key in settings.apiDict"
+                        // https://www.hackingwithswift.com/quick-start/swiftui/how-to-let-users-pick-options-from-a-menu
                         Menu(content: {
                             ForEach(Array(settings.apiDict.keys), id: \.self) { key in
                                 Button(key) {
@@ -29,6 +29,27 @@ struct SettingsView: View {
                         }, label: {
                             Text(settings.currAPI)
                         })
+                    }
+                    if (settings.currAPI == "Random Image API" || settings.currAPI == "Picsum") {
+                        HStack {
+                            Text("Resolution")
+                            Spacer() // https://stackoverflow.com/questions/70446620/swiftui-spacer-not-pushing-content-to-the-side-after-layout-change-to-right-to
+                            TextField("1000", value: $settings.resolution, format: .number)
+                                .keyboardType(.numberPad)
+                                .fixedSize()
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            // https://www.hackingwithswift.com/quick-start/swiftui/how-to-take-action-when-the-user-submits-a-textfield
+                                .onSubmit {
+                                    if (settings.currAPI == "Random Image API") {
+                                        settings.url = URL(string: "https://random.imagecdn.app/\(settings.resolution)/\(settings.resolution)")!
+                                    }
+                                    else {
+                                        settings.url = URL(string: "https://picsum.photos/\(settings.resolution)")!
+                                    }
+                                }
+                        }
+                    }
+                    else {
                     }
                 })
             }

@@ -3,17 +3,16 @@
 //  Final App
 //
 //  Created by Raphael Abano on 10/17/24.
-//  App Goal: Get a random image from an API and display it on the screen
-//  Additional Features: User can refresh the image, User can save the image to their photo library, Tab/Screen where user can view last 10? images, User can change API
-// https://www.youtube.com/watch?v=aP_Q4YiIgYU
+//  MVP: Get a random image from an API and display it on the screen
+//  Additional Features: User can refresh the image, User can save the image to their photo library, Tab/Screen where user can view last 15? images, User can change API
 
 import SwiftUI
 
 struct ContentView: View {
-    @State private var image: UIImage? = nil //Displayed Image
-    @State private var previousImages = [UIImage]() //Will have a max of 15 Images
+    @State private var image: UIImage? = nil // Displayed Image
+    @State private var savedImages = [UIImage]() // Unlimited Images
+    @State private var previousImages = [UIImage]() // Max of 15 Images
     @State private var previousImagesIndex = 0
-    @State private var savedImages = [UIImage]() //Unlimited Images
     @State private var settings = Settings()
     @State private var showAlert = false
     var body: some View {
@@ -24,7 +23,7 @@ struct ContentView: View {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 350, height: 350)
-                } else { //Placeholder if there is no image yet
+                } else { // Placeholder if there is no image yet
                    Text("Refresh to show an image!")
                         .bold()
                 }
@@ -53,7 +52,7 @@ struct ContentView: View {
                     .padding()
                     Button("Save Image") {
                         if let image = image {
-                            if !savedImages.contains(image) { //Only prevents current image being saved multiple times, not future images of the same image
+                            if !savedImages.contains(image) { // Only prevents current image being saved multiple times, not future images of the same image
                                 savedImages.append(image)
                                 showAlert.toggle()
                             }
@@ -61,6 +60,7 @@ struct ContentView: View {
                     }
                 }
             }
+            // https://www.youtube.com/watch?v=aP_Q4YiIgYU
             .navigationTitle("Generate a Image")
             .toolbar {
                 // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
@@ -94,10 +94,9 @@ struct ContentView: View {
             }
         }
     }
-    
-    // Github Copilot Prompt "How can I make this download and return a file"
-    // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites"
     // This basically gets image from a url
+    // Github Copilot Prompt "How can I make this download and return a file/image"
+    // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
