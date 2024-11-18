@@ -16,7 +16,7 @@ struct Settings {
         "Picsum": URL(string: "https://picsum.photos/1000"), // Doesn't work on student wifi
         "PepeBigotes/random-image": URL(string: "https://random-image-pepebigotes.vercel.app/api/random-image"), // Doesn't work on student wifi
         "Test Image": URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png"), // Static Image for testing
-        "Unsplash": URL(string: "https://api.unsplash.com/photos/?client_id=\(Secrets.unsplashAPIKey)") // Requires API key
+        //"Unsplash": URL(string: "https://api.unsplash.com/photos/random?client_id=\(Secrets.unsplashAPIKey)") // Requires API key and requires request to be parsed
     ]
     var showSettings : Bool // Used to open and close sheet
     var url : URL // URL used to get random image
