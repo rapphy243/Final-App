@@ -17,7 +17,7 @@ struct SavedImagesView: View {
                         HStack {
                             LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3), content: {
                                 if (savedImages.count > 0) {
-                                    // https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
+                                    // https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878 basically add "id: \.self"
                                     ForEach(0..<savedImages.count, id: \.self) { index in
                                         Image(uiImage: savedImages[index])
                                             .resizable()
@@ -47,7 +47,6 @@ struct customContextMenu: View {
     @Binding var savedImages : [UIImage]
     var body: some View {
         Button("Delete", systemImage: "trash") {
-            
             savedImages.remove(at: index)
         }
         ShareLink(item: Image(uiImage: savedImages[index]), preview: SharePreview("Share", image: Image(uiImage: savedImages[index])))

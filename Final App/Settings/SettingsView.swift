@@ -33,13 +33,12 @@ struct SettingsView: View {
                     if (settings.currAPI == "Random Image API" || settings.currAPI == "Picsum") {
                         HStack {
                             Text("Resolution")
-                            Spacer() // https://stackoverflow.com/questions/70446620/swiftui-spacer-not-pushing-content-to-the-side-after-layout-change-to-right-to
+                            Spacer()
                             TextField("1000", value: $settings.resolution, format: .number)
                                 .keyboardType(.numberPad)
-                                .fixedSize()
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                            // https://www.hackingwithswift.com/quick-start/swiftui/how-to-take-action-when-the-user-submits-a-textfield
-                                .onSubmit {
+                                .fixedSize() // https://stackoverflow.com/questions/70446620/swiftui-spacer-not-pushing-content-to-the-side-after-layout-change-to-right-to
+                                .onChange(of: settings.resolution) {
                                     if (settings.currAPI == "Random Image API") {
                                         settings.url = URL(string: "https://random.imagecdn.app/\(settings.resolution)/\(settings.resolution)")!
                                     }
@@ -50,6 +49,7 @@ struct SettingsView: View {
                         }
                     }
                     else {
+                        
                     }
                 })
             }

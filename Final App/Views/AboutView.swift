@@ -16,19 +16,20 @@ struct AboutView: View {
                         Image("Icon")
                             .resizable()
                             .frame(width: 145, height: 145)
-                        // https://www.hackingwithswift.com/quick-start/swiftui/how-to-clip-a-view-so-only-part-is-visible
+                            // https://www.hackingwithswift.com/quick-start/swiftui/how-to-clip-a-view-so-only-part-is-visible
                             .clipShape(RoundedRectangle(cornerRadius: 30))
+                            .padding()
                     }
                     else {
                         Image("IconDark")
                             .resizable()
                             .frame(width: 145, height: 145)
-                        // https://stackoverflow.com/questions/77755756/how-to-add-a-border-in-swiftui-with-clipshape
-                        // https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-a-gradient
-                        // https://iosref.com/uihex 
+                            // https://stackoverflow.com/questions/77755756/how-to-add-a-border-in-swiftui-with-clipshape
+                            // https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-a-gradient
+                            // https://iosref.com/uihex
                             .overlay(RoundedRectangle(cornerRadius: 30).stroke(LinearGradient(gradient: Gradient(colors: [Color(red: 0.376, green: 0.58, blue: 0.918), Color(red: 0.933, green: 0.51, blue: 1) ]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2    ))
+                            .padding()
                     }
-                    
                     VStack {
                         Text("Random Image Generator")
                             .multilineTextAlignment(.center)
