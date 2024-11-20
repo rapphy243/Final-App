@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var previousImages = [UIImage]() // Max of 15 Images
     @State private var previousImagesIndex = 0
     @State private var settings = Settings()
-    @State private var showAlert = false
+    @State private var showAlert = false // Opens alert box for when saving a image
     var body: some View {
         NavigationStack {
             VStack {
@@ -30,7 +30,7 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Button("Refresh Image") {
-                        //Generated part of prompt below
+                        //Generated part of prompt
                         downloadImage(from: settings.url) { downloadedImage in
                             if let downloadedImage = downloadedImage {
                         //End of prompt
@@ -60,9 +60,9 @@ struct ContentView: View {
                     }
                 }
             }
-            // https://www.youtube.com/watch?v=aP_Q4YiIgYU
             .navigationTitle("Generate a Image")
             .toolbar {
+                // https://www.youtube.com/watch?v=aP_Q4YiIgYU
                 // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
@@ -94,6 +94,7 @@ struct ContentView: View {
             }
         }
     }
+    
     // This basically gets image from a url
     // Github Copilot Prompt "How can I make this download and return a file/image"
     // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites
@@ -108,6 +109,7 @@ struct ContentView: View {
         }
         task.resume()
     }
+    
 }
 
 #Preview {

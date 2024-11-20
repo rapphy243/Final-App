@@ -22,9 +22,18 @@ struct SavedImagesView: View {
                                         Image(uiImage: savedImages[index])
                                             .resizable()
                                             .frame(width: 100, height: 100)
-                                            .contextMenu { // https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
+                                            // https://stackoverflow.com/questions/77975131/expand-image-when-popped-out-by-context-menu-swiftui
+                                            //  https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
+                                            .contextMenu {
                                                 customContextMenu(index: index, savedImages: $savedImages)
                                             }
+                                            preview: {
+                                                withAnimation {
+                                                    Image(uiImage: savedImages[index])
+                                                        .resizable()
+                                                        .frame(width: 275, height: 275)
+                                            }
+                                        }
                                     }
                                 }
                             })

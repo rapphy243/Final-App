@@ -27,7 +27,7 @@ struct AboutView: View {
                             // https://stackoverflow.com/questions/77755756/how-to-add-a-border-in-swiftui-with-clipshape
                             // https://www.hackingwithswift.com/quick-start/swiftui/how-to-render-a-gradient
                             // https://iosref.com/uihex
-                            .overlay(RoundedRectangle(cornerRadius: 30).stroke(LinearGradient(gradient: Gradient(colors: [Color(red: 0.376, green: 0.58, blue: 0.918), Color(red: 0.933, green: 0.51, blue: 1) ]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2    ))
+                            .overlay(RoundedRectangle(cornerRadius: 30).stroke(LinearGradient(gradient: Gradient(colors: [Color(red: 0.376, green: 0.58, blue: 0.918), Color(red: 0.933, green: 0.51, blue: 1)]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2))
                             .padding()
                     }
                     VStack {
@@ -37,6 +37,7 @@ struct AboutView: View {
                             .bold()
                         Text("Version 1.0")
                             .font(.subheadline)
+                            .bold()
                         Text("By: [Rapphy243](https://github.com/Rapphy243)")
                     }
                 }
@@ -48,7 +49,7 @@ struct AboutView: View {
                     .bold()
                 // https://www.hackingwithswiftb.com/quick-start/swiftui/how-to-customize-the-way-links-are-opened-using-linkdestination
                 Text("Icon made with [Icon.Kitchen](https://icon.kitchen)")
-                Text("API sources from [Random Image API](https://random.responsiveimages.io), [Picsum](https://picsum.photos), [Daniel Petrica](https://danielpetrica.com/api-for-random-images-to-use-du), and [PepeBigotes/random-image](https://random-image-pepebigotes.vercel.app/) ")
+                Text("API sources from [Random Image API](https://random.responsiveimages.io), [Picsum](https://picsum.photos),  [Daniel Petrica](https://danielpetrica.com/api-for-random-images-to-use-du), and [PepeBigotes/random-image](https://random-image-pepebigotes.vercel.app/) ")
                     .multilineTextAlignment(.center)
                 Text("Image downloading code from [Apple Dev Docs](https://developer.apple.com/documentation) modified with [Github Copilot](https://github.com/features/copilot)")
                     .multilineTextAlignment(.center)
