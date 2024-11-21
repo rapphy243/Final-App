@@ -14,7 +14,7 @@ struct Settings {
     let apiDict = [
         "Random Image API": URL(string: "https://random.imagecdn.app/1000/1000"), // Works on student wifi
         "Picsum": URL(string: "https://picsum.photos/1000"), // Doesn't work on student wifi
-        "Daniel Petrica": URL(string: "https://random.danielpetrica.com/api/random?format=regular"), // Works on student wifix
+        "Daniel Petrica": URL(string: "https://random.danielpetrica.com/api/random?format=regular"), // Works on student wifi
         "PepeBigotes/random-image": URL(string: "https://random-image-pepebigotes.vercel.app/api/random-image"), // Doesn't work on student wifi
         "Test Image": URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png"), // Static Image for testing
     ]

@@ -86,7 +86,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $settings.showSettings){
-                //https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
+                // https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
                 SettingsView(settings: $settings)
             }
             .alert(isPresented: $showAlert) {
