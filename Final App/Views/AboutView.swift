@@ -41,7 +41,7 @@ struct AboutView: View {
                         Text("By: [Rapphy243](https://github.com/Rapphy243)")
                     }
                 }
-                Text("Random Image Generator generates random images from a variety API sources.")
+                Text("Random Image Generator generates random images from various API sources.")
                     .multilineTextAlignment(.center)
                     .padding()
                 Text("Main Credits:")
@@ -49,10 +49,11 @@ struct AboutView: View {
                     .bold()
                 // https://www.hackingwithswiftb.com/quick-start/swiftui/how-to-customize-the-way-links-are-opened-using-linkdestination
                 Text("Icon made with [Icon.Kitchen](https://icon.kitchen)")
-                Text("API sources from [Random Image API](https://random.responsiveimages.io), [Picsum](https://picsum.photos),  [Daniel Petrica](https://danielpetrica.com/api-for-random-images-to-use-du), and [PepeBigotes/random-image](https://random-image-pepebigotes.vercel.app/) ")
+                Text("API sources from [Random Image API](https://random.responsiveimages.io), [Picsum](https://picsum.photos),  [Daniel Petrica](https://danielpetrica.com/api-for-random-images-to-use-du), and [PepeBigotes/random-image](https://random-image-pepebigotes.vercel.app/)")
                     .multilineTextAlignment(.center)
                 Text("Image downloading code from [Apple Dev Docs](https://developer.apple.com/documentation) modified with [Github Copilot](https://github.com/features/copilot)")
                     .multilineTextAlignment(.center)
+                
             }
             .navigationTitle("About")
         }

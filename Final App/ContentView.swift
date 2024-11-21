@@ -95,7 +95,7 @@ struct ContentView: View {
         }
     }
     
-    // This basically gets image from a url
+    // Function saves image from a url
     // Github Copilot Prompt "How can I make this download and return a file/image"
     // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {

@@ -31,7 +31,7 @@ struct SavedImagesView: View {
                                                 withAnimation {
                                                     Image(uiImage: savedImages[index])
                                                         .resizable()
-                                                        .frame(width: 275, height: 275)
+                                                        .frame(width: 300, height: 300)
                                             }
                                         }
                                     }
