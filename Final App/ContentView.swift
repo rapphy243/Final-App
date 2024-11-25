@@ -98,18 +98,18 @@ struct ContentView: View {
     // Function saves image from a url
     // Github Copilot Prompt "How can I make this download and return a file/image"
     // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites
-    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(nil)
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) { // Takes a URL and on completion returns a UIImage if valid or nothing if not valid
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in // This creates a data task to download what is in url and saves the data, response or error
+            guard let data = data, error == nil else { // checks if data is valid and there is no error if either is false do else statement
+                completion(nil) // calls completion/returns with nil if there was an error
                 return
             }
-            let image = UIImage(data: data)
-            completion(image)
+            let image = UIImage(data: data) // creates a UIImage from the downloaded data
+            completion(image) // calls completion/returns if creation of image was sucessful
         }
-        task.resume()
+        task.resume() // starts downloading image from url
     }
-    
+
 }
 
 #Preview {

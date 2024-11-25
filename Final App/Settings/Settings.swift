@@ -6,6 +6,7 @@
 //
 
 // https://www.hackingwithswift.com/quick-start/beginners/how-to-create-your-own-structs
+
 import SwiftUI
 
 struct Settings {

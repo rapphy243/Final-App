@@ -5,6 +5,7 @@
 //  Created by Raphael Abano on 11/10/24.
 //
 // https://medium.com/@sharma17krups/swiftui-form-tutorial-how-to-create-settings-screen-using-form-part-1-8e8e80cf584e
+
 import SwiftUI
 
 struct SettingsView: View {
