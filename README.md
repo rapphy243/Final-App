@@ -2,7 +2,9 @@
 
 ## Introduction
 This app was created for my first-semester final project in my Mobile Apps Development class. Random Image Generator generates random images from various API sources.
-![Example of App Running](https://github.com/rapphy243/Final-App/example.gif)
+##
+![Example of App Running](https://i.rap.ph/example-Uvd094Iq.gif)
+
 ## Features
 - Generates an image from an API source and displays it on screen
 - Save generated images that can be viewed later and then saved to the photo gallery
