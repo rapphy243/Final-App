@@ -17,7 +17,7 @@ struct Settings {
         "Daniel Petrica": URL(string: "https://random.danielpetrica.com/api/random?format=regular"), // Works on student wifi
         "Picsum": URL(string: "https://picsum.photos/1000"), // Doesn't work on student wifi
         "PepeBigotes/random-image": URL(string: "https://random-image-pepebigotes.vercel.app/api/random-image"), // Doesn't work on student wifi
-        "Test Image": URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png"), // Static Image for testing
+        "Static Image": URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png"), // Static Image for testing
     ]
     var showSettings : Bool // Used to open and close settings sheet
     var url : URL // URL used to get random image

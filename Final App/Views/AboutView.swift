@@ -36,6 +36,8 @@ struct AboutView: View {
                             .multilineTextAlignment(.center)
                             .font(.title)
                             .bold()
+                            .lineLimit(2) // https://www.hackingwithswift.com/forums/swiftui/stop-text-being-truncated/1535
+                            .minimumScaleFactor(0.5)
                         Text("Version 1.0")
                             .font(.subheadline)
                             .bold()

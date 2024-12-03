@@ -63,11 +63,9 @@ struct customContextMenu: View {
 }
 
 #Preview {
-    // Test Images
-    // https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
-    @Previewable @State var savedImages: [UIImage] = [
-        UIImage(named: "AppIcon.png")!,
-        UIImage(named: "AppIcon Dark.png")!,
-        UIImage(named: "AppIcon Grayscale.png")!]
+    // Test for scrolling
+    // https://www.hackingwithswift.com/example-code/language/how-to-create-an-array-by-repeating-an-item
+    
+    @Previewable @State var savedImages: [UIImage] = [UIImage](repeating: UIImage(named: "AppIcon.png")!, count: 24)
     SavedImagesView(savedImages: $savedImages)
 }
