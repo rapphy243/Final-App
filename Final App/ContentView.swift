@@ -22,7 +22,8 @@ struct ContentView: View {
                 if let image = image {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 350, height: 350)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else { // Placeholder if there is no image yet
                    Text("Refresh to show an image!")
                         .bold()
