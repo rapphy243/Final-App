@@ -3,71 +3,68 @@
 //  Final App
 //
 //  Created by Raphael Abano on 10/17/24.
-//  MVP: Get a random image from an API and display it on the screen
-//  Additional Features: User can refresh the image, User can save the image to their photo library, Tab/Screen where user can view last 15? images, User can change API
+//
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    @State private var image: UIImage? = nil // Displayed Image
-    @State private var savedImages = [UIImage]() // Unlimited Images
-    @State private var previousImages = [UIImage]() // Max of 15 Images
-    @State private var previousImagesIndex = 0
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<SavedImage> { !$0.isPreviousImage }) private var savedImages: [SavedImage]
+    @Query(filter: #Predicate<SavedImage> { $0.isPreviousImage }) private var previousImages: [SavedImage]
+    
+    @State private var image: UIImage?
     @State private var settings = Settings()
-    @State private var showAlert = false // Opens alert box for when saving a image
+    @State private var showAlert = false
+    
     var body: some View {
         NavigationStack {
             VStack {
-                Spacer()
                 if let image = image {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else { // Placeholder if there is no image yet
-                   Text("Refresh to show an image!")
+                    Spacer()
+                    Text("Refresh to show an image!")
                         .bold()
                 }
                 Spacer()
                 HStack {
                     Button("Refresh Image") {
-                        //Generated part of prompt
                         downloadImage(from: settings.url) { downloadedImage in
                             if let downloadedImage = downloadedImage {
-                        //End of prompt
                                 image = downloadedImage
-                                if (previousImages.count < 15) {
-                                    previousImages.append(downloadedImage)
-                                    previousImagesIndex += 1
+                                let savedImage = SavedImage(image: downloadedImage, isPrevious: true)
+                                modelContext.insert(savedImage)
+                                
+                                // Maintain only last 15 previous images
+                                let sortedPrevious = previousImages.sorted { $0.timestamp > $1.timestamp }
+                                if sortedPrevious.count >= 15, let oldestImage = sortedPrevious.last {
+                                    modelContext.delete(oldestImage)
                                 }
-                                else {
-                                    if (previousImagesIndex >= 15){
-                                        previousImagesIndex = 0
-                                    }
-                                    previousImages[previousImagesIndex] = downloadedImage
-                                    previousImagesIndex += 1
-                                }
+                                
+                                try? modelContext.save()
                             }
                         }
                     }
                     .padding()
                     Button("Save Image") {
-                        if let image = image {
-                            if !savedImages.contains(image) { // Only prevents current image being saved multiple times, not future images of the same image
-                                savedImages.append(image)
-                                showAlert.toggle()
-                            }
+                        if let currentImage = image {
+                            let savedImage = SavedImage(image: currentImage)
+                            modelContext.insert(savedImage)
+                            try? modelContext.save()
+                            showAlert.toggle()
                         }
                     }
                 }
             }
             .navigationTitle("Generate a Image")
             .toolbar {
-                // https://www.youtube.com/watch?v=aP_Q4YiIgYU
-                // https://swiftwithmajid.com/2020/08/05/menus-in-swiftui
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
-                        NavigationLink(destination: PreviousImagesView(previousImages: $previousImages, savedImages: $savedImages)){
+                        NavigationLink(destination: PreviousImagesView()){
                             Label("Previous Images", systemImage: "folder")
                         }
                         Button("Settings", systemImage: "gear") {
@@ -81,13 +78,12 @@ struct ContentView: View {
                     })
                 }
                 ToolbarItem(placement: .topBarLeading){
-                    NavigationLink(destination: SavedImagesView(savedImages: $savedImages)){
+                    NavigationLink(destination: SavedImagesView()){
                         Label("Saved Images", systemImage: "photo")
                     }
                 }
             }
             .sheet(isPresented: $settings.showSettings){
-                // https://sarunw.com/posts/swiftui-dismiss-sheet/#how-to-dismiss-sheet-with-%40binding
                 SettingsView(settings: $settings)
             }
             .alert(isPresented: $showAlert) {
@@ -96,23 +92,20 @@ struct ContentView: View {
         }
     }
     
-    // Function saves image from a url
-    // Github Copilot Prompt "How can I make this download and return a file/image"
-    // "this" being code from listing 1 in https://developer.apple.com/documentation/foundation/url_loading_system/downloading_files_from_websites
-    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) { // Takes a URL and on completion returns a UIImage if valid or nothing if not valid
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in // This creates a data task to download what is in url and saves the data, response or error
-            guard let data = data, error == nil else { // checks if data is valid and there is no error if either is false do else statement
-                completion(nil) // calls completion/returns with nil if there was an error
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
                 return
             }
-            let image = UIImage(data: data) // creates a UIImage from the downloaded data
-            completion(image) // calls completion/returns if creation of image was sucessful
+            let image = UIImage(data: data)
+            completion(image)
         }
-        task.resume() // starts downloading image from url
+        task.resume()
     }
-
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: SavedImage.self, inMemory: true)
 }

@@ -1,48 +1,50 @@
 //
-//  pastImagesView.swift
+//  PreviousImagesView.swift
 //  Final App
 //
 //  Created by Raphael Abano on 11/10/24.
 //
 
 import SwiftUI
+import SwiftData
 
 struct PreviousImagesView: View {
-    @Binding var previousImages : [UIImage]
-    @Binding var savedImages : [UIImage]
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<SavedImage> { $0.isPreviousImage },
+           sort: \SavedImage.timestamp,
+           order: .reverse) private var previousImages: [SavedImage]
+    
     var body: some View {
         NavigationStack {
             VStack {
-                if (!previousImages.isEmpty)
-                {
-                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3), content: {
-                        // https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878 basically add "id: \.self"
-                        ForEach(0..<previousImages.count, id: \.self) { index in
-                            Image(uiImage: previousImages[index])
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                // https://stackoverflow.com/questions/77975131/expand-image-when-popped-out-by-context-menu-swiftui
-                                // https://www.hackingwithswift.com/books/ios-swiftui/adding-a-context-menu-to-an-image
-                                .contextMenu {
-                                    Button("Delete", systemImage: "trash") {
-                                        previousImages.remove(at: index)
+                if (!previousImages.isEmpty) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(120)), count: 3)) {
+                        ForEach(previousImages) { previousImage in
+                            if let uiImage = previousImage.uiImage {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .frame(width: 100, height: 100)
+                                    .contextMenu {
+                                        Button("Delete", systemImage: "trash") {
+                                            modelContext.delete(previousImage)
+                                            try? modelContext.save()
+                                        }
+                                        Button("Save to Saved Images", systemImage: "square.and.arrow.down") {
+                                            let savedImage = SavedImage(image: uiImage)
+                                            modelContext.insert(savedImage)
+                                            try? modelContext.save()
+                                        }
                                     }
-                                    Button("Save to Saved Images", systemImage: "square.and.arrow.down") {
-                                        savedImages.append(previousImages[index])
+                                    preview: {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .frame(width: 275, height: 275)
                                     }
-                                }
-                            preview: {
-                                withAnimation {
-                                    Image(uiImage: previousImages[index])
-                                        .resizable()
-                                        .frame(width: 275, height: 275)
-                                }
                             }
                         }
-                    })
+                    }
                     Spacer()
-                }
-                else {
+                } else {
                     Text("No Images Generated")
                 }
             }
@@ -52,12 +54,6 @@ struct PreviousImagesView: View {
 }
 
 #Preview {
-    // Test Images
-    // https://stackoverflow.com/questions/24172180/swift-creating-an-array-of-uiimage
-    @Previewable @State var previousImages: [UIImage] = [
-        UIImage(named: "AppIcon.png")!,
-        UIImage(named: "AppIcon Dark.png")!,
-        UIImage(named: "AppIcon Grayscale.png")!]
-    @Previewable @State var savedImages = [UIImage]()
-    PreviousImagesView(previousImages: $previousImages, savedImages: $savedImages)
+    PreviousImagesView()
+        .modelContainer(for: SavedImage.self, inMemory: true)
 }
