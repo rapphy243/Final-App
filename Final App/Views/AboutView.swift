@@ -57,8 +57,6 @@ struct AboutView: View {
                 Text("Image downloading code from [Apple Dev Docs](https://developer.apple.com/documentation) modified with [Github Copilot](https://github.com/features/copilot)")
                     .multilineTextAlignment(.center)
                 Text("Various code snippets from [Hacking with Swift](https://www.hackingwithswift.com)")
-                    
-                
             }
             .navigationTitle("About")
         }
