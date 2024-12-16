@@ -16,10 +16,6 @@ This app was created for my first-semester final project in my Mobile Apps Devel
 To install and run the app locally, follow these steps:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/rapphy243/Final-App.git
-   ```
-   or clone through Xcode by using repo url
-   ```bash
    https://github.com/rapphy243/Final-App.git
    ```
 2. Open the project in Xcode.
