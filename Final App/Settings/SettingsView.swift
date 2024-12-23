@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var settings: Settings
+    @State var defaults = UserDefaults.standard // https://www.hackingwithswift.com/example-code/system/how-to-save-user-settings-using-userdefaults
     var body: some View {
         NavigationStack {
             Form {
@@ -24,7 +25,9 @@ struct SettingsView: View {
                             ForEach(Array(settings.apiDict.keys), id: \.self) { key in
                                 Button(key) {
                                     settings.url = settings.apiDict[key, default: URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png")]!
+                                    defaults.set(settings.url, forKey: "url")
                                     settings.currAPI = key
+                                    defaults.set(settings.currAPI, forKey: "currAPI")
                                 }
                             }
                         }, label: {

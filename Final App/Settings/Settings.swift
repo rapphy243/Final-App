@@ -26,9 +26,22 @@ struct Settings {
     
     // https://www.hackingwithswift.com/quick-start/beginners/how-to-create-custom-initializers
     init() {
+        let defaults = UserDefaults.standard // https://www.hackingwithswift.com/example-code/system/how-to-save-user-settings-using-userdefaults
         showSettings = false
-        currAPI = "Daniel Petrica"
         resolution = 1000
-        url = apiDict[currAPI, default: URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png")]!
+        if defaults.string(forKey: "currAPI") != nil {
+            currAPI = defaults.string(forKey: "currAPI")!
+        }
+        else {
+            currAPI = "Daniel Petrica"
+            defaults.set(currAPI, forKey: "currAPI")
+        }
+        if defaults.url(forKey: "url") != nil {
+            url = defaults.url(forKey: "url")!
+        }
+        else {
+            url = apiDict[currAPI, default: URL(string: "https://i.rap.ph/R_Monogram_Circle_1000px-beCVHbk5.png")]!
+            defaults.set(url, forKey: "url")
+        }
     }
 }
